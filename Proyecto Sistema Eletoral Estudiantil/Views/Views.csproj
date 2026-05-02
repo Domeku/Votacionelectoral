@@ -124,5 +124,11 @@
   <ItemGroup>
     <None Include="Resources\Screenshot_2026-05-01_173244-removebg-preview1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{c1eaf918-828f-43be-87fa-e89cf09ba780}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
