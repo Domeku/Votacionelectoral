@@ -86,6 +86,10 @@ namespace Controllers
             // Si cualquiera falla, los dos se revierten automáticamente.
             _votoRepo.RegistrarVoto(planchaId, votante.PadronId, votante.UsuarioID);
         }
+        public bool UsuarioYaVoto(int usuarioID)
+        {
+            return _usuarioRepo.YaVoto(usuarioID);
+        }
 
         // ═══════════════════════════════════════════════════════════════
         // LEER: Obtener las planchas disponibles para el votante

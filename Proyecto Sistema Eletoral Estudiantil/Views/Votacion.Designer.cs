@@ -28,24 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvPlanchas = new System.Windows.Forms.DataGridView();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.txtIdVoto = new System.Windows.Forms.TextBox();
             this.btnVotar = new System.Windows.Forms.Button();
             this.btnVotoNulo = new System.Windows.Forms.Button();
-            this.lblInsertarIDVOTO = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.lblPlanchaSeleccionada = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPlanchas)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dgvPlanchas
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(61, 52);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(494, 268);
-            this.dataGridView1.TabIndex = 0;
+            this.dgvPlanchas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPlanchas.Location = new System.Drawing.Point(61, 52);
+            this.dgvPlanchas.Name = "dgvPlanchas";
+            this.dgvPlanchas.RowHeadersWidth = 51;
+            this.dgvPlanchas.RowTemplate.Height = 24;
+            this.dgvPlanchas.Size = new System.Drawing.Size(494, 268);
+            this.dgvPlanchas.TabIndex = 0;
+            this.dgvPlanchas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPlanchas_CellContentClick);
             // 
             // lblTitulo
             // 
@@ -57,13 +57,6 @@
             this.lblTitulo.TabIndex = 1;
             this.lblTitulo.Text = "Votacion";
             // 
-            // txtIdVoto
-            // 
-            this.txtIdVoto.Location = new System.Drawing.Point(244, 338);
-            this.txtIdVoto.Name = "txtIdVoto";
-            this.txtIdVoto.Size = new System.Drawing.Size(100, 22);
-            this.txtIdVoto.TabIndex = 2;
-            // 
             // btnVotar
             // 
             this.btnVotar.Location = new System.Drawing.Point(350, 338);
@@ -72,6 +65,7 @@
             this.btnVotar.TabIndex = 3;
             this.btnVotar.Text = "Votar";
             this.btnVotar.UseVisualStyleBackColor = true;
+            this.btnVotar.Click += new System.EventHandler(this.btnVotar_Click);
             // 
             // btnVotoNulo
             // 
@@ -84,31 +78,31 @@
             this.btnVotoNulo.TabIndex = 4;
             this.btnVotoNulo.Text = "Voto Nulo";
             this.btnVotoNulo.UseVisualStyleBackColor = false;
+            this.btnVotoNulo.Click += new System.EventHandler(this.btnVotoNulo_Click);
             // 
-            // lblInsertarIDVOTO
+            // lblPlanchaSeleccionada
             // 
-            this.lblInsertarIDVOTO.AutoSize = true;
-            this.lblInsertarIDVOTO.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInsertarIDVOTO.Location = new System.Drawing.Point(57, 338);
-            this.lblInsertarIDVOTO.Name = "lblInsertarIDVOTO";
-            this.lblInsertarIDVOTO.Size = new System.Drawing.Size(165, 20);
-            this.lblInsertarIDVOTO.TabIndex = 5;
-            this.lblInsertarIDVOTO.Text = "Insertar Id de Voto";
+            this.lblPlanchaSeleccionada.AutoSize = true;
+            this.lblPlanchaSeleccionada.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlanchaSeleccionada.Location = new System.Drawing.Point(71, 338);
+            this.lblPlanchaSeleccionada.Name = "lblPlanchaSeleccionada";
+            this.lblPlanchaSeleccionada.Size = new System.Drawing.Size(194, 20);
+            this.lblPlanchaSeleccionada.TabIndex = 5;
+            this.lblPlanchaSeleccionada.Text = "Plancha Seleccionada";
             // 
             // Votacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(637, 450);
-            this.Controls.Add(this.lblInsertarIDVOTO);
+            this.Controls.Add(this.lblPlanchaSeleccionada);
             this.Controls.Add(this.btnVotoNulo);
             this.Controls.Add(this.btnVotar);
-            this.Controls.Add(this.txtIdVoto);
             this.Controls.Add(this.lblTitulo);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvPlanchas);
             this.Name = "Votacion";
             this.Text = "Votacion";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPlanchas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -116,11 +110,10 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvPlanchas;
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.TextBox txtIdVoto;
         private System.Windows.Forms.Button btnVotar;
         private System.Windows.Forms.Button btnVotoNulo;
-        private System.Windows.Forms.Label lblInsertarIDVOTO;
+        private System.Windows.Forms.Label lblPlanchaSeleccionada;
     }
 }

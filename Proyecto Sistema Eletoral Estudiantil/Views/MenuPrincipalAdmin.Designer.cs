@@ -78,6 +78,7 @@
             this.btnReportesFinales.TabIndex = 4;
             this.btnReportesFinales.Text = "Reportes Finales";
             this.btnReportesFinales.UseVisualStyleBackColor = true;
+            this.btnReportesFinales.Click += new System.EventHandler(this.btnReportesFinales_Click);
             // 
             // btnEstadisticas
             // 
@@ -88,6 +89,7 @@
             this.btnEstadisticas.TabIndex = 3;
             this.btnEstadisticas.Text = "Estadisticas";
             this.btnEstadisticas.UseVisualStyleBackColor = true;
+            this.btnEstadisticas.Click += new System.EventHandler(this.btnEstadisticas_Click);
             // 
             // btnPanelVotaciones
             // 

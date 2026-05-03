@@ -22,7 +22,7 @@ namespace Views
             if (Sesion.UsuarioActual != null)
             {
                 lblNombreEstudiante.Text = Sesion.UsuarioActual.Nombre;
-                lblCurso.Text = Sesion.UsuarioActual.Curso + " - " +
+                lblCurso.Text = Sesion.UsuarioActual.Curso + " " +
                                  Sesion.UsuarioActual.Seccion;
             }
 
@@ -61,6 +61,26 @@ namespace Views
                 // Mostramos el Login de nuevo
                 var login = new Login();
                 login.Show();
+            }
+        }
+
+        private void btnEstadisticas_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Módulo de estadísticas próximamente.",
+    "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnReportesFinales_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Módulo de reportes próximamente.",
+    "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        private void MenuPrincipalAdmin_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Sesion.UsuarioActual != null)
+            {
+                Sesion.Cerrar();
+                new Login().Show();
             }
         }
     }

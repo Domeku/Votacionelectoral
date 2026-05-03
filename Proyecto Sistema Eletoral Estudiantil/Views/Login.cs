@@ -13,8 +13,8 @@ namespace Views
 {
     public partial class Login : Form
     {
-
         private readonly AuthController _authCtrl = new AuthController();
+
         public Login()
         {
             InitializeComponent();
@@ -22,63 +22,83 @@ namespace Views
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            // Recogemos lo que el usuario escribió
-            string matricula = txtMatricula.Text.Trim();
+            string matricula  = txtMatricula.Text.Trim();
             string contrasena = txtContrasena.Text;
 
-            // Validación visual básica — antes de llamar al controller
+            // Validación visual antes de llamar al controller
             if (string.IsNullOrEmpty(matricula) || string.IsNullOrEmpty(contrasena))
             {
-                MessageBox.Show("Por favor ingresa tu matrícula y contraseña.",
+                MessageBox.Show("Ingresa tu matrícula y contraseña.",
                     "Campos vacíos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
-                // El controller hace TODO el trabajo: buscar el usuario,
-                // verificar el hash, devolver el objeto o null.
+                // El controller busca al usuario Y verifica el hash.
+                // Si algo falla, devuelve null — nunca lanza excepción por
+                // credenciales incorrectas, solo por problemas de conexión.
                 var usuario = _authCtrl.Login(matricula, contrasena);
 
                 if (usuario == null)
                 {
-                    // No decimos si falló la matrícula o la contraseña —
-                    // eso daría información útil a alguien malintencionado.
-                    MessageBox.Show("Credenciales incorrectas. Intenta de nuevo.",
-                        "Acceso denegado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(
+                        "Matrícula o contraseña incorrecta.",
+                        "Acceso denegado",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
+                    // Limpiamos solo la contraseña — la matrícula puede
+                    // estar bien y sería molesto que el usuario la reescriba
                     txtContrasena.Clear();
+                    txtContrasena.Focus();
                     return;
                 }
 
-                // Guardamos el usuario en la sesión global.
-                // Desde este momento, cualquier formulario puede leer
-                // Sesion.UsuarioActual para saber quién está conectado.
+                // ── Guardamos la sesión global ──
+                // Desde este momento CUALQUIER formulario puede leer
+                // Sesion.UsuarioActual sin que nadie se lo pase por parámetro
                 Sesion.UsuarioActual = usuario;
 
-                // Decidimos qué menú abrir según el rol.
-                // RolNombre viene del JOIN que hicimos en UsuarioRepository.
+                // ── Decidimos qué abrir según el rol ──
                 if (usuario.RolNombre == "Admin")
                 {
-                    var menu = new MenuPrincipalAdmin();
-                    menu.Show();
+                    new MenuPrincipalAdmin().Show();
                 }
                 else
                 {
-                    // Aquí irá el menú del votante cuando lo crees
-                    var votacion = new Votacion();
-                    votacion.Show();
+                    // Antes de abrir la votación, verificamos si ya votó.
+                    // Si ya votó, lo mandamos directo al panel de resultados.
+                    var votacionCtrl = new VotacionController();
+                    bool yaVoto = votacionCtrl.UsuarioYaVoto(usuario.UsuarioID);
+
+                    if (yaVoto)
+                    {
+                        MessageBox.Show(
+                            "Ya ejerciste tu voto. Puedes ver los resultados.",
+                            "Voto registrado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+
+                        new PanelVotaciones().Show();
+                    }
+                    else
+                    {
+                        new Votacion().Show();
+                    }
                 }
 
-                // Ocultamos el login — no lo cerramos porque si se cierra,
-                // la aplicación también se cierra (es el formulario principal).
+                // Ocultamos el login — no lo cerramos porque es el
+                // formulario raíz de Application.Run()
                 this.Hide();
             }
             catch (Exception ex)
             {
-                // Si hay un error de conexión a SQL u otro problema técnico,
-                // lo mostramos aquí. El usuario nunca ve un crash.
-                MessageBox.Show($"Error del sistema: {ex.Message}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"Error de conexión: {ex.Message}",
+                    "Error del sistema",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
     }
