@@ -16,5 +16,52 @@ namespace Views
         {
             InitializeComponent();
         }
+
+        private void MenuPrincipalAdmin_Load(object sender, EventArgs e)
+        {
+            if (Sesion.UsuarioActual != null)
+            {
+                lblNombreEstudiante.Text = Sesion.UsuarioActual.Nombre;
+                lblCurso.Text = Sesion.UsuarioActual.Curso + " - " +
+                                 Sesion.UsuarioActual.Seccion;
+            }
+
+
+        }
+
+        private void btnPadron_Click(object sender, EventArgs e)
+        {
+            using var f = new Padron();
+            f.ShowDialog(this);
+        }
+
+        private void btnConfiguracionPlanchas_Click(object sender, EventArgs e)
+        {
+            using var f = new PlanchaElectoral();
+            f.ShowDialog(this);
+        }
+
+        private void btnPanelVotaciones_Click(object sender, EventArgs e)
+        {
+            using var f = new PanelVotaciones();
+            f.ShowDialog(this);
+        }
+
+        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            var confirmar = MessageBox.Show(
+                "¿Deseas cerrar sesión?", "Cerrar sesión",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (confirmar == DialogResult.Yes)
+            {
+                Sesion.Cerrar();     // Limpiamos la sesión global
+                this.Hide();         // Ocultamos el menú
+
+                // Mostramos el Login de nuevo
+                var login = new Login();
+                login.Show();
+            }
+        }
     }
 }

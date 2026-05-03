@@ -41,7 +41,7 @@
             this.lblMatricula = new System.Windows.Forms.Label();
             this.lblContraseña = new System.Windows.Forms.Label();
             this.txtMatricula = new System.Windows.Forms.TextBox();
-            this.txtContraseña = new System.Windows.Forms.TextBox();
+            this.txtContrasena = new System.Windows.Forms.TextBox();
             this.btnIngresar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -185,13 +185,13 @@
             this.txtMatricula.Size = new System.Drawing.Size(264, 32);
             this.txtMatricula.TabIndex = 12;
             // 
-            // txtContraseña
+            // txtContrasena
             // 
-            this.txtContraseña.Location = new System.Drawing.Point(220, 271);
-            this.txtContraseña.Multiline = true;
-            this.txtContraseña.Name = "txtContraseña";
-            this.txtContraseña.Size = new System.Drawing.Size(264, 32);
-            this.txtContraseña.TabIndex = 13;
+            this.txtContrasena.Location = new System.Drawing.Point(220, 271);
+            this.txtContrasena.Multiline = true;
+            this.txtContrasena.Name = "txtContrasena";
+            this.txtContrasena.Size = new System.Drawing.Size(264, 32);
+            this.txtContrasena.TabIndex = 13;
             // 
             // btnIngresar
             // 
@@ -201,6 +201,7 @@
             this.btnIngresar.TabIndex = 14;
             this.btnIngresar.Text = "Ingresar";
             this.btnIngresar.UseVisualStyleBackColor = true;
+            this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
             // 
             // Login
             // 
@@ -209,7 +210,7 @@
             this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(782, 450);
             this.Controls.Add(this.btnIngresar);
-            this.Controls.Add(this.txtContraseña);
+            this.Controls.Add(this.txtContrasena);
             this.Controls.Add(this.txtMatricula);
             this.Controls.Add(this.lblContraseña);
             this.Controls.Add(this.lblMatricula);
@@ -245,7 +246,7 @@
         private System.Windows.Forms.Label lblMatricula;
         private System.Windows.Forms.Label lblContraseña;
         private System.Windows.Forms.TextBox txtMatricula;
-        private System.Windows.Forms.TextBox txtContraseña;
+        private System.Windows.Forms.TextBox txtContrasena;
         private System.Windows.Forms.Button btnIngresar;
     }
 }

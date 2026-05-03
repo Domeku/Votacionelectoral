@@ -10,7 +10,7 @@
     <RootNamespace>Views</RootNamespace>
     <AssemblyName>Views</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-<LangVersion>10.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -85,6 +85,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Sesion.cs" />
     <Compile Include="Votacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +127,10 @@
     <None Include="Resources\Screenshot_2026-05-01_173244-removebg-preview1.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Controllers\Controllers.csproj">
+      <Project>{a6e4429a-d8f5-4f0d-a654-77ed45d0cef2}</Project>
+      <Name>Controllers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{c1eaf918-828f-43be-87fa-e89cf09ba780}</Project>
       <Name>Models</Name>

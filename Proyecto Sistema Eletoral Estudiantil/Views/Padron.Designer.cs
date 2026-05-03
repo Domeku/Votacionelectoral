@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.lblRegistroEstudiantes = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblMatricula = new System.Windows.Forms.Label();
@@ -38,24 +38,26 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.txtMatricula = new System.Windows.Forms.TextBox();
             this.btnRegistrar = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.cmbCurso = new System.Windows.Forms.ComboBox();
+            this.cmbPadron = new System.Windows.Forms.ComboBox();
+            this.cmbSeccion = new System.Windows.Forms.ComboBox();
             this.b = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.bt = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.cmbRol = new System.Windows.Forms.ComboBox();
+            this.lblRol = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dgvUsuarios
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(356, 12);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(288, 221);
-            this.dataGridView1.TabIndex = 0;
+            this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUsuarios.Location = new System.Drawing.Point(356, 12);
+            this.dgvUsuarios.Name = "dgvUsuarios";
+            this.dgvUsuarios.RowHeadersWidth = 51;
+            this.dgvUsuarios.RowTemplate.Height = 24;
+            this.dgvUsuarios.Size = new System.Drawing.Size(288, 221);
+            this.dgvUsuarios.TabIndex = 0;
             // 
             // lblRegistroEstudiantes
             // 
@@ -101,7 +103,7 @@
             // 
             this.lblSeccion.AutoSize = true;
             this.lblSeccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSeccion.Location = new System.Drawing.Point(210, 128);
+            this.lblSeccion.Location = new System.Drawing.Point(254, 128);
             this.lblSeccion.Name = "lblSeccion";
             this.lblSeccion.Size = new System.Drawing.Size(76, 20);
             this.lblSeccion.TabIndex = 6;
@@ -111,7 +113,7 @@
             // 
             this.lblPadron.AutoSize = true;
             this.lblPadron.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPadron.Location = new System.Drawing.Point(63, 128);
+            this.lblPadron.Location = new System.Drawing.Point(36, 128);
             this.lblPadron.Name = "lblPadron";
             this.lblPadron.Size = new System.Drawing.Size(68, 20);
             this.lblPadron.TabIndex = 7;
@@ -140,41 +142,42 @@
             this.btnRegistrar.TabIndex = 13;
             this.btnRegistrar.Text = "Registrar";
             this.btnRegistrar.UseVisualStyleBackColor = true;
+            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
             // 
-            // comboBox1
+            // cmbCurso
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cmbCurso.FormattingEnabled = true;
+            this.cmbCurso.Items.AddRange(new object[] {
             "6to Informatica",
             "6to Electronica",
             "6to Musica",
             "6to Gestion"});
-            this.comboBox1.Location = new System.Drawing.Point(250, 76);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(100, 24);
-            this.comboBox1.TabIndex = 14;
+            this.cmbCurso.Location = new System.Drawing.Point(250, 76);
+            this.cmbCurso.Name = "cmbCurso";
+            this.cmbCurso.Size = new System.Drawing.Size(100, 24);
+            this.cmbCurso.TabIndex = 14;
             // 
-            // comboBox2
+            // cmbPadron
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.cmbPadron.FormattingEnabled = true;
+            this.cmbPadron.Items.AddRange(new object[] {
             "Mesa 1",
             "Mesa 2"});
-            this.comboBox2.Location = new System.Drawing.Point(48, 151);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(100, 24);
-            this.comboBox2.TabIndex = 15;
+            this.cmbPadron.Location = new System.Drawing.Point(21, 151);
+            this.cmbPadron.Name = "cmbPadron";
+            this.cmbPadron.Size = new System.Drawing.Size(100, 24);
+            this.cmbPadron.TabIndex = 15;
             // 
-            // comboBox3
+            // cmbSeccion
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
+            this.cmbSeccion.FormattingEnabled = true;
+            this.cmbSeccion.Items.AddRange(new object[] {
             "A",
             "B"});
-            this.comboBox3.Location = new System.Drawing.Point(202, 151);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(100, 24);
-            this.comboBox3.TabIndex = 16;
+            this.cmbSeccion.Location = new System.Drawing.Point(246, 151);
+            this.cmbSeccion.Name = "cmbSeccion";
+            this.cmbSeccion.Size = new System.Drawing.Size(100, 24);
+            this.cmbSeccion.TabIndex = 16;
             // 
             // b
             // 
@@ -195,6 +198,7 @@
             this.btnEliminar.TabIndex = 18;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // bt
             // 
@@ -205,18 +209,42 @@
             this.bt.TabIndex = 19;
             this.bt.Text = "Buscar";
             this.bt.UseVisualStyleBackColor = true;
+            this.bt.Click += new System.EventHandler(this.bt_Click);
+            // 
+            // cmbRol
+            // 
+            this.cmbRol.FormattingEnabled = true;
+            this.cmbRol.Items.AddRange(new object[] {
+            "Admin",
+            "Votante"});
+            this.cmbRol.Location = new System.Drawing.Point(136, 151);
+            this.cmbRol.Name = "cmbRol";
+            this.cmbRol.Size = new System.Drawing.Size(100, 24);
+            this.cmbRol.TabIndex = 21;
+            // 
+            // lblRol
+            // 
+            this.lblRol.AutoSize = true;
+            this.lblRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRol.Location = new System.Drawing.Point(162, 128);
+            this.lblRol.Name = "lblRol";
+            this.lblRol.Size = new System.Drawing.Size(37, 20);
+            this.lblRol.TabIndex = 20;
+            this.lblRol.Text = "Rol";
             // 
             // Padron
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(656, 275);
+            this.Controls.Add(this.cmbRol);
+            this.Controls.Add(this.lblRol);
             this.Controls.Add(this.bt);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.b);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbSeccion);
+            this.Controls.Add(this.cmbPadron);
+            this.Controls.Add(this.cmbCurso);
             this.Controls.Add(this.btnRegistrar);
             this.Controls.Add(this.txtMatricula);
             this.Controls.Add(this.txtNombre);
@@ -226,10 +254,11 @@
             this.Controls.Add(this.lblMatricula);
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.lblRegistroEstudiantes);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvUsuarios);
             this.Name = "Padron";
             this.Text = "Padron";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.Padron_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,7 +266,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvUsuarios;
         private System.Windows.Forms.Label lblRegistroEstudiantes;
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblMatricula;
@@ -247,11 +276,13 @@
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.TextBox txtMatricula;
         private System.Windows.Forms.Button btnRegistrar;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox cmbCurso;
+        private System.Windows.Forms.ComboBox cmbPadron;
+        private System.Windows.Forms.ComboBox cmbSeccion;
         private System.Windows.Forms.Button b;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button bt;
+        private System.Windows.Forms.ComboBox cmbRol;
+        private System.Windows.Forms.Label lblRol;
     }
 }

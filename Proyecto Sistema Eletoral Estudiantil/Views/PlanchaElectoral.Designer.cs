@@ -222,6 +222,7 @@
             this.btnEditar.TabIndex = 18;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // DataGridView
             // 
@@ -279,6 +280,7 @@
             this.Controls.Add(this.label1);
             this.Name = "PlanchaElectoral";
             this.Text = "PlanchaElectoral";
+            this.Load += new System.EventHandler(this.PlanchaElectoral_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

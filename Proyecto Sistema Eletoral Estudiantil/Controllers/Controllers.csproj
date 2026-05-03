@@ -58,9 +58,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthController.cs" />
+    <Compile Include="EstadisticasController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsuarioController.cs" />
+    <Compile Include="VotacionController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{0a100c22-8abf-4f79-85fe-6cb097d5b736}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{c1eaf918-828f-43be-87fa-e89cf09ba780}</Project>
       <Name>Models</Name>
