@@ -16,6 +16,9 @@ namespace Views
     {
         private readonly VotacionController _votacionCtrl = new VotacionController();
         private readonly UsuarioController _usuarioCtrl = new UsuarioController();
+
+        private Plancha _planchaActual = null; // <-- aquí
+
         public PlanchaElectoral()
         {
             InitializeComponent();
@@ -44,6 +47,30 @@ namespace Views
         private void PlanchaElectoral_Load(object sender, EventArgs e)
         {
             CargarComboBoxPadron();
+            CargarGrilla();
+        }
+
+        private void CargarGrilla()
+        {
+            try
+            {
+                var planchas = _votacionCtrl.ObtenerPlanchasPorPadron(
+                    Sesion.UsuarioActual.PadronId);
+
+                dgvPlanchas.DataSource = planchas;
+
+                // Ocultamos columnas internas
+                string[] ocultas = { "PlanchaId", "PadronId", "Candidatos",
+                                     "TotalVotos", "PorcentajeVotos", "LogUrl" };
+                foreach (var col in ocultas)
+                    if (dgvPlanchas.Columns[col] != null)
+                        dgvPlanchas.Columns[col].Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar planchas: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CargarComboBoxPadron()
@@ -63,52 +90,6 @@ namespace Views
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void btnEditar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Construimos la plancha con lo que el admin escribió.
-                // Los nombres txtNombrePlancha, txtEslogan deben coincidir
-                // con los Names de tus TextBox en el designer.
-                var plancha = new Plancha
-                {
-                    Nombre = txtNombrePlancha.Text.Trim(),
-                    Eslogan = txtEslogan.Text.Trim(),
-                    // PadronId = (int)cmbPadronPlancha.SelectedValue,
-                    // Por ahora usamos el padrón del admin en sesión:
-                    PadronId = Sesion.UsuarioActual.PadronId
-                };
-
-                // Construimos la lista de candidatos con los campos del formulario.
-                // Ajusta los nombres de los TextBox según tu designer.
-                plancha.Candidatos = new List<Candidato>
-                {
-                    new Candidato { Nombre = txtPresidente.Text.Trim(),
-                                    Puesto = "Presidente" },
-                    new Candidato { Nombre = txtVicePresidente.Text.Trim(),
-                                    Puesto = "VicePresidente" },
-                    new Candidato { Nombre = txtSecretario.Text.Trim(),
-                                    Puesto = "Secretario General" },
-                    new Candidato { Nombre = txtTesorero.Text.Trim(),
-                                    Puesto = "Tesorero" }
-                };
-
-                // El controller valida, guarda la plancha, y luego guarda
-                // cada candidato con el ID recién creado.
-                _votacionCtrl.RegistrarPlancha(plancha);
-
-                MessageBox.Show("Plancha registrada correctamente.",
-                    "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                LimpiarFormulario();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al guardar: {ex.Message}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
         private void LimpiarFormulario()
         {
             txtNombrePlancha.Clear();
@@ -117,6 +98,156 @@ namespace Views
             txtVicePresidente.Clear();
             txtSecretario.Clear();
             txtTesorero.Clear();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (_planchaActual == null)
+            {
+                MessageBox.Show("Selecciona una plancha de la lista primero.",
+                    "Sin selección", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var planchaEditada = new Plancha
+                {
+                    PlanchaId = _planchaActual.PlanchaId,
+                    Nombre = txtNombrePlancha.Text.Trim(),
+                    Eslogan = txtEslogan.Text.Trim(),
+                    PadronId = _planchaActual.PadronId
+                };
+
+                _votacionCtrl.ActualizarPlanchaCompleta(
+                    planchaEditada,
+                    txtPresidente.Text.Trim(),
+                    txtVicePresidente.Text.Trim(),
+                    txtSecretario.Text.Trim(),
+                    txtTesorero.Text.Trim());
+
+                MessageBox.Show("Plancha actualizada correctamente.",
+                    "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                _planchaActual = null;
+                LimpiarFormulario();
+                CargarGrilla();
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al editar: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var plancha = new Plancha
+                {
+                    Nombre = txtNombrePlancha.Text.Trim(),
+                    Eslogan = txtEslogan.Text.Trim(),
+                    PadronId = Sesion.UsuarioActual.PadronId,
+                    Candidatos = new List<Candidato>
+                    {
+                        new Candidato { Nombre = txtPresidente.Text.Trim(),
+                                        Puesto = "Presidente" },
+                        new Candidato { Nombre = txtVicePresidente.Text.Trim(),
+                                        Puesto = "VicePresidente" },
+                        new Candidato { Nombre = txtSecretario.Text.Trim(),
+                                        Puesto = "Secretario General" },
+                        new Candidato { Nombre = txtTesorero.Text.Trim(),
+                                        Puesto = "Tesorero" }
+                    }
+                };
+
+                _votacionCtrl.RegistrarPlancha(plancha);
+
+                MessageBox.Show("Plancha registrada correctamente.",
+                    "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                LimpiarFormulario();
+                CargarGrilla();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al agregar: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvPlanchas_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvPlanchas.SelectedRows.Count == 0) return;
+
+            _planchaActual = (Plancha)dgvPlanchas.SelectedRows[0].DataBoundItem;
+            if (_planchaActual == null) return;
+
+            txtNombrePlancha.Text = _planchaActual.Nombre;
+            txtEslogan.Text = _planchaActual.Eslogan;
+            txtId.Text = _planchaActual.PlanchaId.ToString();
+
+            txtPresidente.Clear();
+            txtVicePresidente.Clear();
+            txtSecretario.Clear();
+            txtTesorero.Clear();
+
+            foreach (var c in _planchaActual.Candidatos)
+            {
+                switch (c.Puesto)
+                {
+                    case "Presidente": txtPresidente.Text = c.Nombre; break;
+                    case "VicePresidente": txtVicePresidente.Text = c.Nombre; break;
+                    case "Secretario General": txtSecretario.Text = c.Nombre; break;
+                    case "Tesorero": txtTesorero.Text = c.Nombre; break;
+                }
+            }
+        }
+
+        private void dgvPlanchas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtId.Text))
+            {
+                MessageBox.Show("Selecciona una plancha de la lista primero.",
+                    "Sin selección", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var confirmar = MessageBox.Show(
+                "¿Estás seguro de que deseas eliminar esta plancha?\nEsta acción no se puede deshacer.",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (confirmar != DialogResult.Yes) return;
+
+            try
+            {
+                int planchaId = int.Parse(txtId.Text);
+                _votacionCtrl.EliminarPlancha(planchaId);
+
+                MessageBox.Show("Plancha eliminada correctamente.",
+                    "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                LimpiarFormulario();
+                CargarGrilla();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al eliminar: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

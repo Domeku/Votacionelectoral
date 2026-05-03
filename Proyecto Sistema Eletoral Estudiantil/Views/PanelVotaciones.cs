@@ -44,17 +44,17 @@ namespace Views
             {
                 int padronId = Sesion.UsuarioActual.PadronId;
 
-                // Actualizamos los 3 KPI labels grandes
-                // Ajusta lblTotalVotos, lblVotosNulos al nombre real de tus Labels
+                // Votos de la mesa del usuario actual
                 lblTotalVotosRealizados.Text = _estadCtrl.ObtenerTotalVotos(padronId).ToString();
                 lblVotosNulos.Text = _estadCtrl.ObtenerVotosNulos(padronId).ToString();
 
-                // El cronómetro viene de la configuración — lo manejamos aparte
-                // Actualizamos el DataGridView con resultados por plancha
-                var resultados = _estadCtrl.ObtenerResultados(padronId);
+                // Total global sumando todas las mesas
+                lblTotalGlobal.Text = _estadCtrl.ObtenerTotalVotosGlobal().ToString();
+
+                // Resultados globales sumando votos de todas las mesas por plancha
+                var resultados = _estadCtrl.ObtenerResultadosGlobales();
                 dgvResultados.DataSource = resultados;
 
-                // Ocultamos columnas internas
                 OcultarColumnasInternas();
             }
             catch (Exception ex)
@@ -66,13 +66,16 @@ namespace Views
 
         private void OcultarColumnasInternas()
         {
-            string[] columnaOcultas = {
-                "PlanchaId", "PadronId", "Candidatos", "LogUrl"
-            };
+            string[] columnasOcultas = {
+        "PlanchaId", "PadronId", "LogUrl",
+        "Candidatos", "TotalVotos", "PorcentajeVotos"
+    };
 
-            foreach (var col in columnaOcultas)
+            foreach (var col in columnasOcultas)
+            {
                 if (dgvResultados.Columns[col] != null)
                     dgvResultados.Columns[col].Visible = false;
+            }
         }
 
         private void IniciarCronometro()

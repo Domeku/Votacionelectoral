@@ -38,6 +38,10 @@ namespace Controllers
         // "falló", pero no dice POR QUÉ falló. Con excepciones, el mensaje
         // de error llega exacto hasta el formulario sin código extra.
         // ═══════════════════════════════════════════════════════════════
+        public void EliminarPlancha(int planchaId)
+        {
+            _planchaRepo.Eliminar(planchaId);
+        }
         public void EmitirVoto(Usuario votante, int? planchaId)
         {
             // ── REGLA 1: ¿Está la votación activa? ───────────────────
@@ -86,6 +90,58 @@ namespace Controllers
             // Si cualquiera falla, los dos se revierten automáticamente.
             _votoRepo.RegistrarVoto(planchaId, votante.PadronId, votante.UsuarioID);
         }
+
+        public void ActualizarPlancha(Plancha p)
+        {
+            if (string.IsNullOrWhiteSpace(p.Nombre))
+                throw new ArgumentException("La plancha debe tener un nombre.");
+
+            _planchaRepo.Actualizar(p);
+        }
+
+        public void ActualizarPlanchaCompleta(Plancha p, string presidente,
+            string vice, string secretario, string tesorero)
+        {
+            if (string.IsNullOrWhiteSpace(p.Nombre))
+                throw new ArgumentException("La plancha debe tener un nombre.");
+
+            var nombres = new[] { presidente, vice, secretario, tesorero };
+            var puestos = new[] { "Presidente", "VicePresidente",
+                          "Secretario General", "Tesorero" };
+
+            for (int i = 0; i < nombres.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(nombres[i])) continue;
+
+                for (int j = 0; j < nombres.Length; j++)
+                {
+                    if (i == j) continue;
+                    if (nombres[i].Trim().ToLower() == nombres[j].Trim().ToLower())
+                        throw new InvalidOperationException(
+                            $"{nombres[i]} no puede tener 2 roles en la misma plancha.\n" +
+                            $"Aparece como {puestos[i]} y {puestos[j]}.");
+                }
+
+                var (existe, plancha, puesto) =
+                    _planchaRepo.CandidatoYaExiste(nombres[i].Trim(), p.PlanchaId, puestos[i]);
+
+                if (existe)
+                    throw new InvalidOperationException(
+                        $"{nombres[i]} ya es {puesto} de la plancha '{plancha}'.\n" +
+                        $"Una persona no puede tener 2 roles.");
+            }
+
+            // Actualizamos eslogan y nombre de esta plancha
+            _planchaRepo.Actualizar(p);
+
+            // Actualizamos candidatos directamente por PlanchaID y Puesto
+            // Esto afecta solo esta plancha específica
+            _planchaRepo.ActualizarCandidato(presidente.Trim(), "Presidente", p.PlanchaId);
+            _planchaRepo.ActualizarCandidato(vice.Trim(), "VicePresidente", p.PlanchaId);
+            _planchaRepo.ActualizarCandidato(secretario.Trim(), "Secretario General", p.PlanchaId);
+            _planchaRepo.ActualizarCandidato(tesorero.Trim(), "Tesorero", p.PlanchaId);
+        }
+
         public bool UsuarioYaVoto(int usuarioID)
         {
             return _usuarioRepo.YaVoto(usuarioID);

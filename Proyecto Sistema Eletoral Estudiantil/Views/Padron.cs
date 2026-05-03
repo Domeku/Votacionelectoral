@@ -90,9 +90,6 @@ namespace Views
         {
             try
             {
-                // Construimos el objeto con lo que el usuario escribió.
-                // Los ComboBoxes devuelven el ValueMember seleccionado
-                // (el ID) cuando accedes a .SelectedValue.
                 var nuevoUsuario = new Usuario
                 {
                     Nombre = txtNombre.Text.Trim(),
@@ -103,29 +100,22 @@ namespace Views
                     PadronId = (int)cmbPadron.SelectedValue
                 };
 
-                // La contraseña inicial puede ser la misma matrícula.
-                // El Admin le dice al votante que la cambie después.
-                string contrasenaInicial = txtMatricula.Text.Trim();
+                // Ahora usa lo que escribió el admin en txtContrasena
+                string contrasena = txtContrasena.Text.Trim();
 
-                // El controller valida y guarda. Si algo está mal,
-                // lanza una excepción que capturamos abajo.
-                _usuarioCtrl.Registrar(nuevoUsuario, contrasenaInicial);
+                _usuarioCtrl.Registrar(nuevoUsuario, contrasena);
 
-                MessageBox.Show("Usuario registrado correctamente.\n" +
-                    "Contraseña inicial: su número de matrícula.",
+                MessageBox.Show("Usuario registrado correctamente.",
                     "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 LimpiarFormulario();
-                CargarGrilla(); // Refrescamos la tabla para ver el nuevo usuario
+                CargarGrilla();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al registrar: {ex.Message}",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
-
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -181,12 +171,40 @@ namespace Views
         {
             txtNombre.Clear();
             txtMatricula.Clear();
-            // Reseteamos los ComboBoxes al primer elemento
+            txtContrasena.Clear(); // <-- agregar esta línea
             if (cmbRol.Items.Count > 0) cmbRol.SelectedIndex = 0;
             if (cmbPadron.Items.Count > 0) cmbPadron.SelectedIndex = 0;
             if (cmbCurso.Items.Count > 0) cmbCurso.SelectedIndex = 0;
             if (cmbSeccion.Items.Count > 0) cmbSeccion.SelectedIndex = 0;
         }
 
+        private void b_Click(object sender, EventArgs e)
+        {
+            if (dgvUsuarios.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecciona un usuario de la lista primero.",
+                    "Sin selección", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // Lee directamente el objeto Usuario que está detrás de la fila
+                // Si el admin editó una celda en el grid, DataBoundItem ya tiene
+                // el valor nuevo porque el grid está enlazado a la lista
+                var u = (Usuario)dgvUsuarios.SelectedRows[0].DataBoundItem;
+                _usuarioCtrl.Actualizar(u);
+
+                MessageBox.Show("Usuario actualizado correctamente.",
+                    "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                CargarGrilla();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al actualizar: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

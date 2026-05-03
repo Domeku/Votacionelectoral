@@ -1,0 +1,186 @@
+﻿namespace Views
+{
+    partial class MenuPrincipalVotante
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.lblCurso = new System.Windows.Forms.Label();
+            this.lblNombreEstudiante = new System.Windows.Forms.Label();
+            this.panelHeader = new System.Windows.Forms.Panel();
+            this.btnPlanchas = new System.Windows.Forms.Button();
+            this.panelForm = new System.Windows.Forms.Panel();
+            this.btnReportesFinales = new System.Windows.Forms.Button();
+            this.btnPanelVotaciones = new System.Windows.Forms.Button();
+            this.panelSidebar = new System.Windows.Forms.Panel();
+            this.btnVotar = new System.Windows.Forms.Button();
+            this.btnCerrarSesion = new System.Windows.Forms.Button();
+            this.panelHeader.SuspendLayout();
+            this.panelSidebar.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // lblCurso
+            // 
+            this.lblCurso.AutoSize = true;
+            this.lblCurso.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurso.Location = new System.Drawing.Point(12, 33);
+            this.lblCurso.Name = "lblCurso";
+            this.lblCurso.Size = new System.Drawing.Size(151, 25);
+            this.lblCurso.TabIndex = 1;
+            this.lblCurso.Text = "Aqui va el curso";
+            // 
+            // lblNombreEstudiante
+            // 
+            this.lblNombreEstudiante.AutoSize = true;
+            this.lblNombreEstudiante.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreEstudiante.Location = new System.Drawing.Point(12, 8);
+            this.lblNombreEstudiante.Name = "lblNombreEstudiante";
+            this.lblNombreEstudiante.Size = new System.Drawing.Size(329, 25);
+            this.lblNombreEstudiante.TabIndex = 0;
+            this.lblNombreEstudiante.Text = "Aqui va el nombre del Estudiante";
+            // 
+            // panelHeader
+            // 
+            this.panelHeader.BackColor = System.Drawing.Color.White;
+            this.panelHeader.Controls.Add(this.lblCurso);
+            this.panelHeader.Controls.Add(this.lblNombreEstudiante);
+            this.panelHeader.Location = new System.Drawing.Point(4, 1);
+            this.panelHeader.Name = "panelHeader";
+            this.panelHeader.Size = new System.Drawing.Size(799, 101);
+            this.panelHeader.TabIndex = 2;
+            // 
+            // btnPlanchas
+            // 
+            this.btnPlanchas.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPlanchas.Location = new System.Drawing.Point(16, 152);
+            this.btnPlanchas.Name = "btnPlanchas";
+            this.btnPlanchas.Size = new System.Drawing.Size(184, 41);
+            this.btnPlanchas.TabIndex = 1;
+            this.btnPlanchas.Text = "Planchas";
+            this.btnPlanchas.UseVisualStyleBackColor = true;
+            this.btnPlanchas.Click += new System.EventHandler(this.btnPlanchas_Click);
+            // 
+            // panelForm
+            // 
+            this.panelForm.BackgroundImage = global::Views.Properties.Resources.Banner;
+            this.panelForm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelForm.Location = new System.Drawing.Point(206, 100);
+            this.panelForm.Name = "panelForm";
+            this.panelForm.Size = new System.Drawing.Size(597, 349);
+            this.panelForm.TabIndex = 4;
+            // 
+            // btnReportesFinales
+            // 
+            this.btnReportesFinales.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReportesFinales.Location = new System.Drawing.Point(16, 246);
+            this.btnReportesFinales.Name = "btnReportesFinales";
+            this.btnReportesFinales.Size = new System.Drawing.Size(184, 41);
+            this.btnReportesFinales.TabIndex = 4;
+            this.btnReportesFinales.Text = "Reportes Finales";
+            this.btnReportesFinales.UseVisualStyleBackColor = true;
+            this.btnReportesFinales.Click += new System.EventHandler(this.btnReportesFinales_Click);
+            // 
+            // btnPanelVotaciones
+            // 
+            this.btnPanelVotaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPanelVotaciones.Location = new System.Drawing.Point(16, 199);
+            this.btnPanelVotaciones.Name = "btnPanelVotaciones";
+            this.btnPanelVotaciones.Size = new System.Drawing.Size(184, 41);
+            this.btnPanelVotaciones.TabIndex = 2;
+            this.btnPanelVotaciones.Text = "Panel de Votaciones";
+            this.btnPanelVotaciones.UseVisualStyleBackColor = true;
+            this.btnPanelVotaciones.Click += new System.EventHandler(this.btnPanelVotaciones_Click);
+            // 
+            // panelSidebar
+            // 
+            this.panelSidebar.BackColor = System.Drawing.Color.AliceBlue;
+            this.panelSidebar.Controls.Add(this.btnVotar);
+            this.panelSidebar.Controls.Add(this.btnCerrarSesion);
+            this.panelSidebar.Controls.Add(this.btnReportesFinales);
+            this.panelSidebar.Controls.Add(this.btnPanelVotaciones);
+            this.panelSidebar.Controls.Add(this.btnPlanchas);
+            this.panelSidebar.Location = new System.Drawing.Point(-2, 1);
+            this.panelSidebar.Name = "panelSidebar";
+            this.panelSidebar.Size = new System.Drawing.Size(209, 448);
+            this.panelSidebar.TabIndex = 3;
+            // 
+            // btnVotar
+            // 
+            this.btnVotar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVotar.Location = new System.Drawing.Point(15, 104);
+            this.btnVotar.Name = "btnVotar";
+            this.btnVotar.Size = new System.Drawing.Size(184, 41);
+            this.btnVotar.TabIndex = 6;
+            this.btnVotar.Text = "Votar";
+            this.btnVotar.UseVisualStyleBackColor = true;
+            this.btnVotar.Click += new System.EventHandler(this.btnVotar_Click);
+            // 
+            // btnCerrarSesion
+            // 
+            this.btnCerrarSesion.BackColor = System.Drawing.Color.Red;
+            this.btnCerrarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCerrarSesion.Location = new System.Drawing.Point(18, 396);
+            this.btnCerrarSesion.Name = "btnCerrarSesion";
+            this.btnCerrarSesion.Size = new System.Drawing.Size(184, 41);
+            this.btnCerrarSesion.TabIndex = 5;
+            this.btnCerrarSesion.Text = "Cerrar Sesion";
+            this.btnCerrarSesion.UseVisualStyleBackColor = false;
+            this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
+            // 
+            // MenuPrincipalVotante
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::Views.Properties.Resources.Banner1;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.panelHeader);
+            this.Controls.Add(this.panelForm);
+            this.Controls.Add(this.panelSidebar);
+            this.Name = "MenuPrincipalVotante";
+            this.Text = "MenuPrincipalVotante";
+            this.Load += new System.EventHandler(this.MenuPrincipalVotante_Load);
+            this.panelHeader.ResumeLayout(false);
+            this.panelHeader.PerformLayout();
+            this.panelSidebar.ResumeLayout(false);
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Label lblCurso;
+        private System.Windows.Forms.Label lblNombreEstudiante;
+        private System.Windows.Forms.Panel panelHeader;
+        private System.Windows.Forms.Button btnPlanchas;
+        private System.Windows.Forms.Panel panelForm;
+        private System.Windows.Forms.Button btnReportesFinales;
+        private System.Windows.Forms.Button btnPanelVotaciones;
+        private System.Windows.Forms.Panel panelSidebar;
+        private System.Windows.Forms.Button btnCerrarSesion;
+        private System.Windows.Forms.Button btnVotar;
+    }
+}

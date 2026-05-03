@@ -52,7 +52,7 @@ namespace Data
                     diccionario[planchaID].Candidatos.Add(new Candidato
                     {
                         CandidatoID = (int)reader["CandidatoID"],
-                        Nombre = reader["CandNombre"].ToString(),
+                        Nombre = reader["CandidatoNombre"].ToString(),
                         Puesto = reader["Puesto"].ToString(),
                         PlanchaID = planchaID
                     });
@@ -68,6 +68,108 @@ namespace Data
         // Usado por el Controller para verificar que la plancha
         // pertenece al mismo padrón del votante.
         // ─────────────────────────────────────────────────────────────
+
+        public void ActualizarCandidatoPorNombre(string nombreAnterior, string nombreNuevo, string puesto)
+        {
+            string sql = @"UPDATE Candidatos 
+                   SET Nombre = @NombreNuevo 
+                   WHERE Puesto = @Puesto 
+                   AND Nombre = @NombreAnterior";
+
+            using var conn = Conexion.instancia.ObtenerConexion();
+            using var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@NombreNuevo", nombreNuevo);
+            cmd.Parameters.AddWithValue("@Puesto", puesto);
+            cmd.Parameters.AddWithValue("@NombreAnterior", nombreAnterior);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+        }
+
+        public void ActualizarNombrePorPadron(string nombreAnterior, string nombreNuevo)
+        {
+            string sql = @"UPDATE Planchas 
+                   SET Nombre = @NombreNuevo
+                   WHERE Nombre = @NombreAnterior";
+
+            using var conn = Conexion.instancia.ObtenerConexion();
+            using var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@NombreNuevo", nombreNuevo);
+            cmd.Parameters.AddWithValue("@NombreAnterior", nombreAnterior);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+        }
+        public (bool existe, string plancha, string puesto) CandidatoYaExiste(string nombre, int planchaIdActual, string puestoActual)
+        {
+            string sql = @"
+        SELECT p.Nombre AS Plancha, c.Puesto
+        FROM Candidatos c
+        JOIN Planchas p ON p.PlanchaID = c.PlanchaID
+        WHERE c.Nombre = @Nombre 
+          AND c.PlanchaID != @PlanchaID
+          AND p.PadronID = (SELECT PadronID FROM Planchas WHERE PlanchaID = @PlanchaID)";
+
+            using var conn = Conexion.instancia.ObtenerConexion();
+            using var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@Nombre", nombre);
+            cmd.Parameters.AddWithValue("@PlanchaID", planchaIdActual);
+            conn.Open();
+            using var reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+                return (true, reader["Plancha"].ToString(), reader["Puesto"].ToString());
+
+            return (false, null, null);
+        }
+
+        public void ActualizarCandidato(string nombre, string puesto, int planchaId)
+        {
+            string sql = @"UPDATE Candidatos 
+                   SET Nombre = @Nombre 
+                   WHERE Puesto = @Puesto AND PlanchaID = @PlanchaID";
+
+            using var conn = Conexion.instancia.ObtenerConexion();
+            using var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@Nombre", nombre);
+            cmd.Parameters.AddWithValue("@Puesto", puesto);
+            cmd.Parameters.AddWithValue("@PlanchaID", planchaId);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+        }
+        public void Eliminar(int planchaId)
+        {
+            // Primero eliminamos los candidatos (FK lo exige)
+            string sqlCandidatos = "DELETE FROM Candidatos WHERE PlanchaID = @PlanchaID";
+            using var conn = Conexion.instancia.ObtenerConexion();
+            conn.Open();
+
+            using var cmdC = new SqlCommand(sqlCandidatos, conn);
+            cmdC.Parameters.AddWithValue("@PlanchaID", planchaId);
+            cmdC.ExecuteNonQuery();
+
+            // Luego eliminamos la plancha
+            string sqlPlancha = "DELETE FROM Planchas WHERE PlanchaID = @PlanchaID";
+            using var cmdP = new SqlCommand(sqlPlancha, conn);
+            cmdP.Parameters.AddWithValue("@PlanchaID", planchaId);
+            cmdP.ExecuteNonQuery();
+        }
+        public void Actualizar(Plancha p)
+        {
+            string sql = @"UPDATE Planchas 
+                   SET Nombre   = @Nombre,
+                       Eslogan  = @Eslogan,
+                       LogoURL  = @LogoURL
+                   WHERE PlanchaID = @PlanchaID";
+
+            using var conn = Conexion.instancia.ObtenerConexion();
+            using var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@Nombre", p.Nombre);
+            cmd.Parameters.AddWithValue("@Eslogan", (object)p.Eslogan ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@LogoURL", (object)p.LogUrl ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@PlanchaID", p.PlanchaId);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+        }
+
         public Plancha ObtenerPorID(int planchaID)
         {
             string sql = "SELECT PlanchaID, Nombre, Eslogan, LogoURL, PadronID FROM Planchas WHERE PlanchaID = @ID";

@@ -45,12 +45,13 @@
             this.txtTesorero = new System.Windows.Forms.TextBox();
             this.lblTesorero = new System.Windows.Forms.Label();
             this.textBox7 = new System.Windows.Forms.TextBox();
-            this.btnBuscar = new System.Windows.Forms.Button();
+            this.btnAgregar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.DataGridView = new System.Windows.Forms.DataGridView();
+            this.dgvPlanchas = new System.Windows.Forms.DataGridView();
             this.txtId = new System.Windows.Forms.TextBox();
             this.lblId = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).BeginInit();
+            this.btnEliminar = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPlanchas)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -205,18 +206,19 @@
             this.textBox7.Size = new System.Drawing.Size(2, 317);
             this.textBox7.TabIndex = 15;
             // 
-            // btnBuscar
+            // btnAgregar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(122, 312);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(174, 59);
-            this.btnBuscar.TabIndex = 17;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Location = new System.Drawing.Point(48, 312);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(174, 59);
+            this.btnAgregar.TabIndex = 17;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(334, 312);
+            this.btnEditar.Location = new System.Drawing.Point(260, 312);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(174, 59);
             this.btnEditar.TabIndex = 18;
@@ -224,15 +226,17 @@
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
-            // DataGridView
+            // dgvPlanchas
             // 
-            this.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridView.Location = new System.Drawing.Point(403, 139);
-            this.DataGridView.Name = "DataGridView";
-            this.DataGridView.RowHeadersWidth = 51;
-            this.DataGridView.RowTemplate.Height = 24;
-            this.DataGridView.Size = new System.Drawing.Size(261, 150);
-            this.DataGridView.TabIndex = 19;
+            this.dgvPlanchas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPlanchas.Location = new System.Drawing.Point(403, 139);
+            this.dgvPlanchas.Name = "dgvPlanchas";
+            this.dgvPlanchas.RowHeadersWidth = 51;
+            this.dgvPlanchas.RowTemplate.Height = 24;
+            this.dgvPlanchas.Size = new System.Drawing.Size(261, 150);
+            this.dgvPlanchas.TabIndex = 19;
+            this.dgvPlanchas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPlanchas_CellContentClick);
+            this.dgvPlanchas.SelectionChanged += new System.EventHandler(this.dgvPlanchas_SelectionChanged);
             // 
             // txtId
             // 
@@ -252,16 +256,27 @@
             this.lblId.TabIndex = 20;
             this.lblId.Text = "Id";
             // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Location = new System.Drawing.Point(457, 312);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(174, 59);
+            this.btnEliminar.TabIndex = 22;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
             // PlanchaElectoral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(676, 383);
+            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.txtId);
             this.Controls.Add(this.lblId);
-            this.Controls.Add(this.DataGridView);
+            this.Controls.Add(this.dgvPlanchas);
             this.Controls.Add(this.btnEditar);
-            this.Controls.Add(this.btnBuscar);
+            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.txtTesorero);
             this.Controls.Add(this.lblTesorero);
@@ -281,7 +296,7 @@
             this.Name = "PlanchaElectoral";
             this.Text = "PlanchaElectoral";
             this.Load += new System.EventHandler(this.PlanchaElectoral_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPlanchas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -305,10 +320,11 @@
         private System.Windows.Forms.TextBox txtTesorero;
         private System.Windows.Forms.Label lblTesorero;
         private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnEditar;
-        private System.Windows.Forms.DataGridView DataGridView;
+        private System.Windows.Forms.DataGridView dgvPlanchas;
         private System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.Label lblId;
+        private System.Windows.Forms.Button btnEliminar;
     }
 }

@@ -72,8 +72,8 @@ namespace Views
 
         private void btnReportesFinales_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Módulo de reportes próximamente.",
-    "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using var f = new Reportes();
+            f.ShowDialog(this);
         }
         private void MenuPrincipalAdmin_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -82,6 +82,22 @@ namespace Views
                 Sesion.Cerrar();
                 new Login().Show();
             }
+        }
+
+        private void btnVotar_Click(object sender, EventArgs e)
+        {
+            using var f = new Votacion();
+            f.ShowDialog(this);
+        }
+
+        private void lblNombreEstudiante_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCurso_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

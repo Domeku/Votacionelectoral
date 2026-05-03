@@ -67,8 +67,6 @@ namespace Views
                 }
                 else
                 {
-                    // Antes de abrir la votación, verificamos si ya votó.
-                    // Si ya votó, lo mandamos directo al panel de resultados.
                     var votacionCtrl = new VotacionController();
                     bool yaVoto = votacionCtrl.UsuarioYaVoto(usuario.UsuarioID);
 
@@ -79,12 +77,11 @@ namespace Views
                             "Voto registrado",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
-
                         new PanelVotaciones().Show();
                     }
                     else
                     {
-                        new Votacion().Show();
+                        new MenuPrincipalVotante().Show();
                     }
                 }
 

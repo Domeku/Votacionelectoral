@@ -57,5 +57,15 @@ namespace Controllers
         {
             _usuarioRepo.Eliminar(usuarioId);
         }
+
+        public void Actualizar(Usuario u)
+        {
+            if (string.IsNullOrWhiteSpace(u.Nombre))
+                throw new ArgumentException("El nombre no puede estar vacío.");
+            if (string.IsNullOrWhiteSpace(u.Matricula))
+                throw new ArgumentException("La matrícula no puede estar vacía.");
+
+            _usuarioRepo.Actualizar(u);
+        }
     }
 }

@@ -46,6 +46,7 @@
             this.dgvPlanchas.Size = new System.Drawing.Size(494, 268);
             this.dgvPlanchas.TabIndex = 0;
             this.dgvPlanchas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPlanchas_CellContentClick);
+            this.dgvPlanchas.SelectionChanged += new System.EventHandler(this.dgvPlanchas_SelectionChanged);
             // 
             // lblTitulo
             // 
@@ -102,6 +103,7 @@
             this.Controls.Add(this.dgvPlanchas);
             this.Name = "Votacion";
             this.Text = "Votacion";
+            this.Load += new System.EventHandler(this.Votacion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPlanchas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -24,8 +24,16 @@ namespace Views
 
         private void Votacion_Load(object sender, EventArgs e)
         {
-            VerificarAcesso();
-            CargarPlanchas();
+            try
+            {
+                VerificarAcesso();
+                CargarPlanchas();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error en Load: {ex.Message}\n\nDetalle: {ex.InnerException?.Message}",
+                    "Error detallado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void VerificarAcesso()

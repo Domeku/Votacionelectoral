@@ -105,5 +105,69 @@ namespace Controllers
 
             return resultados[0]; // Ya están ordenados de mayor a menor
         }
+    public Plancha ObtenerReporteGanador(int padronId)
+        {
+            // ObtenerResultados ya devuelve las planchas ordenadas de mayor
+            // a menor votos, con TotalVotos y PorcentajeVotos calculados.
+            // El ganador es simplemente el primero de la lista.
+            var resultados = ObtenerResultados(padronId);
+
+            if (resultados.Count == 0 || resultados[0].TotalVotos == 0)
+                return null;
+
+            return resultados[0];
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // REPORTE 2: Lista completa de votantes con su estado
+        //
+        // Devuelve todos los usuarios del padrón indicando si votaron o no.
+        // Un partido puede saber si alguien votó, pero nunca por quién.
+        // ═══════════════════════════════════════════════════════════════
+        public List<Usuario> ObtenerReporteVotantes(int padronId)
+        {
+            var todos = _usuarioRepo.ObtenerTodos();
+            // Filtramos solo los del padrón indicado
+            return todos.Where(u => u.PadronId == padronId).ToList();
+        }
+
+        // Resultados globales sumando votos de todas las mesas por nombre de plancha
+        public List<Plancha> ObtenerResultadosGlobales()
+        {
+            // Traemos las planchas de un solo padrón (Mesa 1) como referencia
+            // porque los nombres son iguales en todas las mesas
+            var planchas = _planchaRepo.ObtenerPorPadron(1);
+            int totalVotos = _votoRepo.TotalVotosGlobal();
+
+            // Para cada plancha sumamos los votos de TODAS las mesas
+            foreach (var plancha in planchas)
+            {
+                plancha.TotalVotos = _votoRepo.TotalVotosPorNombrePlancha(plancha.Nombre);
+                plancha.PorcentajeVotos = totalVotos > 0
+                    ? (double)plancha.TotalVotos / totalVotos * 100
+                    : 0;
+            }
+
+            return planchas.OrderByDescending(p => p.TotalVotos).ToList();
+        }
+
+        public int ObtenerTotalVotosGlobal()
+        {
+            return _votoRepo.TotalVotosGlobal();
+        }
+
+        public int ObtenerVotosNulosGlobal()
+        {
+            return _votoRepo.TotalVotosNulosGlobal();
+        }
+
+        public Plancha ObtenerGanadorGlobal()
+        {
+            var resultados = ObtenerResultadosGlobales();
+            if (resultados.Count == 0 || resultados[0].TotalVotos == 0)
+                return null;
+            return resultados[0];
+        }
+
     }
 }

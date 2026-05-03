@@ -48,6 +48,29 @@ namespace Data
             };
         }
 
+        public void Actualizar(Usuario u)
+        {
+            string sql = @"UPDATE Usuarios 
+                   SET Nombre    = @Nombre,
+                       Matricula = @Matricula,
+                       Curso     = @Curso,
+                       Seccion   = @Seccion,
+                       RolID     = @RolId,
+                       PadronID  = @PadronId
+                   WHERE UsuarioID = @UsuarioID";
+
+            using var conn = Conexion.instancia.ObtenerConexion();
+            using var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@Nombre", u.Nombre);
+            cmd.Parameters.AddWithValue("@Matricula", u.Matricula);
+            cmd.Parameters.AddWithValue("@Curso", u.Curso);
+            cmd.Parameters.AddWithValue("@Seccion", u.Seccion);
+            cmd.Parameters.AddWithValue("@RolId", u.RolId);
+            cmd.Parameters.AddWithValue("@PadronId", u.PadronId);
+            cmd.Parameters.AddWithValue("@UsuarioID", u.UsuarioID);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+        }
         public bool YaVoto(int usuarioID)
         {
             string sql = "SELECT COUNT(1) FROM VotosAudit WHERE UsuarioID = @UsuarioID";

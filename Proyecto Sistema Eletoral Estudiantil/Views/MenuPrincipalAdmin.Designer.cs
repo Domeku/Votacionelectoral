@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.panelSidebar = new System.Windows.Forms.Panel();
+            this.btnVotar = new System.Windows.Forms.Button();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.btnReportesFinales = new System.Windows.Forms.Button();
-            this.btnEstadisticas = new System.Windows.Forms.Button();
             this.btnPanelVotaciones = new System.Windows.Forms.Button();
             this.btnConfiguracionPlanchas = new System.Windows.Forms.Button();
             this.btnPadron = new System.Windows.Forms.Button();
@@ -46,9 +46,9 @@
             // panelSidebar
             // 
             this.panelSidebar.BackColor = System.Drawing.Color.AliceBlue;
+            this.panelSidebar.Controls.Add(this.btnVotar);
             this.panelSidebar.Controls.Add(this.btnCerrarSesion);
             this.panelSidebar.Controls.Add(this.btnReportesFinales);
-            this.panelSidebar.Controls.Add(this.btnEstadisticas);
             this.panelSidebar.Controls.Add(this.btnPanelVotaciones);
             this.panelSidebar.Controls.Add(this.btnConfiguracionPlanchas);
             this.panelSidebar.Controls.Add(this.btnPadron);
@@ -56,6 +56,17 @@
             this.panelSidebar.Name = "panelSidebar";
             this.panelSidebar.Size = new System.Drawing.Size(209, 448);
             this.panelSidebar.TabIndex = 0;
+            // 
+            // btnVotar
+            // 
+            this.btnVotar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVotar.Location = new System.Drawing.Point(18, 105);
+            this.btnVotar.Name = "btnVotar";
+            this.btnVotar.Size = new System.Drawing.Size(184, 41);
+            this.btnVotar.TabIndex = 6;
+            this.btnVotar.Text = "Votar";
+            this.btnVotar.UseVisualStyleBackColor = true;
+            this.btnVotar.Click += new System.EventHandler(this.btnVotar_Click);
             // 
             // btnCerrarSesion
             // 
@@ -72,7 +83,7 @@
             // btnReportesFinales
             // 
             this.btnReportesFinales.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReportesFinales.Location = new System.Drawing.Point(18, 295);
+            this.btnReportesFinales.Location = new System.Drawing.Point(18, 296);
             this.btnReportesFinales.Name = "btnReportesFinales";
             this.btnReportesFinales.Size = new System.Drawing.Size(184, 41);
             this.btnReportesFinales.TabIndex = 4;
@@ -80,21 +91,10 @@
             this.btnReportesFinales.UseVisualStyleBackColor = true;
             this.btnReportesFinales.Click += new System.EventHandler(this.btnReportesFinales_Click);
             // 
-            // btnEstadisticas
-            // 
-            this.btnEstadisticas.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEstadisticas.Location = new System.Drawing.Point(18, 248);
-            this.btnEstadisticas.Name = "btnEstadisticas";
-            this.btnEstadisticas.Size = new System.Drawing.Size(184, 41);
-            this.btnEstadisticas.TabIndex = 3;
-            this.btnEstadisticas.Text = "Estadisticas";
-            this.btnEstadisticas.UseVisualStyleBackColor = true;
-            this.btnEstadisticas.Click += new System.EventHandler(this.btnEstadisticas_Click);
-            // 
             // btnPanelVotaciones
             // 
             this.btnPanelVotaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPanelVotaciones.Location = new System.Drawing.Point(18, 201);
+            this.btnPanelVotaciones.Location = new System.Drawing.Point(18, 243);
             this.btnPanelVotaciones.Name = "btnPanelVotaciones";
             this.btnPanelVotaciones.Size = new System.Drawing.Size(184, 41);
             this.btnPanelVotaciones.TabIndex = 2;
@@ -105,7 +105,7 @@
             // btnConfiguracionPlanchas
             // 
             this.btnConfiguracionPlanchas.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfiguracionPlanchas.Location = new System.Drawing.Point(18, 154);
+            this.btnConfiguracionPlanchas.Location = new System.Drawing.Point(18, 196);
             this.btnConfiguracionPlanchas.Name = "btnConfiguracionPlanchas";
             this.btnConfiguracionPlanchas.Size = new System.Drawing.Size(184, 41);
             this.btnConfiguracionPlanchas.TabIndex = 1;
@@ -116,7 +116,7 @@
             // btnPadron
             // 
             this.btnPadron.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPadron.Location = new System.Drawing.Point(18, 107);
+            this.btnPadron.Location = new System.Drawing.Point(18, 149);
             this.btnPadron.Name = "btnPadron";
             this.btnPadron.Size = new System.Drawing.Size(184, 41);
             this.btnPadron.TabIndex = 0;
@@ -143,6 +143,7 @@
             this.lblCurso.Size = new System.Drawing.Size(151, 25);
             this.lblCurso.TabIndex = 1;
             this.lblCurso.Text = "Aqui va el curso";
+            this.lblCurso.Click += new System.EventHandler(this.lblCurso_Click);
             // 
             // lblNombreEstudiante
             // 
@@ -153,9 +154,12 @@
             this.lblNombreEstudiante.Size = new System.Drawing.Size(329, 25);
             this.lblNombreEstudiante.TabIndex = 0;
             this.lblNombreEstudiante.Text = "Aqui va el nombre del Estudiante";
+            this.lblNombreEstudiante.Click += new System.EventHandler(this.lblNombreEstudiante_Click);
             // 
             // panelForm
             // 
+            this.panelForm.BackgroundImage = global::Views.Properties.Resources.Banner;
+            this.panelForm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panelForm.Location = new System.Drawing.Point(202, 100);
             this.panelForm.Name = "panelForm";
             this.panelForm.Size = new System.Drawing.Size(597, 349);
@@ -186,11 +190,11 @@
         private System.Windows.Forms.Label lblNombreEstudiante;
         private System.Windows.Forms.Button btnCerrarSesion;
         private System.Windows.Forms.Button btnReportesFinales;
-        private System.Windows.Forms.Button btnEstadisticas;
         private System.Windows.Forms.Button btnPanelVotaciones;
         private System.Windows.Forms.Button btnConfiguracionPlanchas;
         private System.Windows.Forms.Button btnPadron;
         private System.Windows.Forms.Label lblCurso;
         private System.Windows.Forms.Panel panelForm;
+        private System.Windows.Forms.Button btnVotar;
     }
 }

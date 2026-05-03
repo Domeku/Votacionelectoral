@@ -65,7 +65,8 @@ namespace Data
 
         // ─────────────────────────────────────────────────────────────
         // LEER: Total de votos emitidos en un padrón
-        // ─────────────────────────────────────────────────────────────
+        // ────────────────────────────────────────────────────────────
+
         public int TotalVotos(int padronID)
         {
             string sql = "SELECT COUNT(*) FROM Votos WHERE PadronID = @PadronID";
@@ -86,6 +87,39 @@ namespace Data
             using var conn = Conexion.instancia.ObtenerConexion();
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@PadronID", padronID);
+            conn.Open();
+            return (int)cmd.ExecuteScalar();
+        }
+
+        public int TotalVotosPorNombrePlancha(string nombrePlancha)
+        {
+            string sql = @"
+        SELECT COUNT(*) 
+        FROM Votos v
+        JOIN Planchas p ON p.PlanchaID = v.PlanchaID
+        WHERE p.Nombre = @Nombre";
+
+            using var conn = Conexion.instancia.ObtenerConexion();
+            using var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@Nombre", nombrePlancha);
+            conn.Open();
+            return (int)cmd.ExecuteScalar();
+        }
+
+        public int TotalVotosGlobal()
+        {
+            string sql = "SELECT COUNT(*) FROM Votos";
+            using var conn = Conexion.instancia.ObtenerConexion();
+            using var cmd = new SqlCommand(sql, conn);
+            conn.Open();
+            return (int)cmd.ExecuteScalar();
+        }
+
+        public int TotalVotosNulosGlobal()
+        {
+            string sql = "SELECT COUNT(*) FROM Votos WHERE PlanchaID IS NULL";
+            using var conn = Conexion.instancia.ObtenerConexion();
+            using var cmd = new SqlCommand(sql, conn);
             conn.Open();
             return (int)cmd.ExecuteScalar();
         }

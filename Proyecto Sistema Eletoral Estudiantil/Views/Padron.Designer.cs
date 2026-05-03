@@ -46,6 +46,8 @@
             this.bt = new System.Windows.Forms.Button();
             this.cmbRol = new System.Windows.Forms.ComboBox();
             this.lblRol = new System.Windows.Forms.Label();
+            this.txtContrasena = new System.Windows.Forms.TextBox();
+            this.lblContrasena = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.SuspendLayout();
             // 
@@ -136,7 +138,7 @@
             // btnRegistrar
             // 
             this.btnRegistrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRegistrar.Location = new System.Drawing.Point(27, 210);
+            this.btnRegistrar.Location = new System.Drawing.Point(27, 218);
             this.btnRegistrar.Name = "btnRegistrar";
             this.btnRegistrar.Size = new System.Drawing.Size(298, 49);
             this.btnRegistrar.TabIndex = 13;
@@ -188,6 +190,7 @@
             this.b.TabIndex = 17;
             this.b.Text = "Editar";
             this.b.UseVisualStyleBackColor = true;
+            this.b.Click += new System.EventHandler(this.b_Click);
             // 
             // btnEliminar
             // 
@@ -232,11 +235,31 @@
             this.lblRol.TabIndex = 20;
             this.lblRol.Text = "Rol";
             // 
+            // txtContrasena
+            // 
+            this.txtContrasena.Location = new System.Drawing.Point(103, 192);
+            this.txtContrasena.Name = "txtContrasena";
+            this.txtContrasena.PasswordChar = '*';
+            this.txtContrasena.Size = new System.Drawing.Size(222, 22);
+            this.txtContrasena.TabIndex = 23;
+            // 
+            // lblContrasena
+            // 
+            this.lblContrasena.AutoSize = true;
+            this.lblContrasena.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblContrasena.Location = new System.Drawing.Point(-4, 193);
+            this.lblContrasena.Name = "lblContrasena";
+            this.lblContrasena.Size = new System.Drawing.Size(111, 20);
+            this.lblContrasena.TabIndex = 22;
+            this.lblContrasena.Text = "Contraseña:";
+            // 
             // Padron
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(656, 275);
+            this.ClientSize = new System.Drawing.Size(656, 280);
+            this.Controls.Add(this.txtContrasena);
+            this.Controls.Add(this.lblContrasena);
             this.Controls.Add(this.cmbRol);
             this.Controls.Add(this.lblRol);
             this.Controls.Add(this.bt);
@@ -284,5 +307,7 @@
         private System.Windows.Forms.Button bt;
         private System.Windows.Forms.ComboBox cmbRol;
         private System.Windows.Forms.Label lblRol;
+        private System.Windows.Forms.TextBox txtContrasena;
+        private System.Windows.Forms.Label lblContrasena;
     }
 }
