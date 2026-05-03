@@ -67,15 +67,14 @@ namespace Views
         private void OcultarColumnasInternas()
         {
             string[] columnasOcultas = {
-        "PlanchaId", "PadronId", "LogUrl",
-        "Candidatos", "TotalVotos", "PorcentajeVotos"
+        "PlanchaId", "PadronId", "Candidatos",
+        "PorcentajeVotos", "LogUrl"
+        // TotalVotos ya NO está aquí — lo queremos visible
     };
 
             foreach (var col in columnasOcultas)
-            {
                 if (dgvResultados.Columns[col] != null)
                     dgvResultados.Columns[col].Visible = false;
-            }
         }
 
         private void IniciarCronometro()
